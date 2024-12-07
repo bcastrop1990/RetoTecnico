@@ -1,5 +1,6 @@
 package com.reto.tecnico.bcastro.infrastructure.output.persistence.repository;
 
+import com.reto.tecnico.bcastro.config.TestConfig;
 import com.reto.tecnico.bcastro.domain.model.Candidate;
 import com.reto.tecnico.bcastro.domain.model.Gender;
 import com.reto.tecnico.bcastro.infrastructure.mapper.CandidateMapper;
@@ -7,14 +8,14 @@ import com.reto.tecnico.bcastro.infrastructure.output.persistence.entity.Candida
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,13 +25,16 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ComponentScan(basePackages = "com.reto.tecnico.bcastro")
+@TestPropertySource(properties = {
+        "spring.jpa.hibernate.ddl-auto=validate",
+        "spring.flyway.enabled=true",
+        "spring.main.allow-bean-definition-overriding=true"
+})
+@Import(TestConfig.class)
+@ActiveProfiles("test")
 class MySQLCandidateRepositoryTest {
-
 
     @Autowired
     private JpaCandidateRepository jpaRepository;

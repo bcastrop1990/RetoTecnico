@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS recruitment_db.user_login (
+CREATE TABLE IF NOT EXISTS user_login (
   username VARCHAR(20) PRIMARY KEY,
   password VARCHAR(200) NOT NULL,
   email VARCHAR(50),
@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS recruitment_db.user_login (
   disabled TINYINT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS recruitment_db.user_role (
+CREATE TABLE IF NOT EXISTS user_role (
   username VARCHAR(20) NOT NULL,
   role VARCHAR(20) NOT NULL,
   granted_date DATETIME NOT NULL,
